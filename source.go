@@ -1,7 +1,7 @@
 package mongoimport
 
 import (
-	"github.com/romnnn/mongoimport/loaders"
+	"github.com/Jostafarr/mongoimport/loaders"
 )
 
 // Datasource ...

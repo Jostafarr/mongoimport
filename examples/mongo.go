@@ -3,8 +3,8 @@ package examples
 import (
 	"context"
 
+	"github.com/Jostafarr/mongoimport"
 	"github.com/docker/go-connections/nat"
-	"github.com/romnnn/mongoimport"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
 )

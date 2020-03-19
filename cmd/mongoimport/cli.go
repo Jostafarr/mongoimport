@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/romnnn/mongoimport"
-	"github.com/romnnn/mongoimport/validation"
+	"github.com/Jostafarr/mongoimport"
+	"github.com/Jostafarr/mongoimport/validation"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 )

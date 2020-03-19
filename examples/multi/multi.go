@@ -5,9 +5,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/romnnn/mongoimport"
-	"github.com/romnnn/mongoimport/examples"
-	"github.com/romnnn/mongoimport/loaders"
+	"github.com/Jostafarr/mongoimport"
+	"github.com/Jostafarr/mongoimport/examples"
+	"github.com/Jostafarr/mongoimport/loaders"
 	log "github.com/sirupsen/logrus"
 )
 

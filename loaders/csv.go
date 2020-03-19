@@ -8,7 +8,7 @@ import (
 	"unicode/utf8"
 
 	csv "github.com/JensRantil/go-csv"
-	"github.com/romnnn/mongoimport/validation"
+	"github.com/Jostafarr/mongoimport/validation"
 	log "github.com/sirupsen/logrus"
 )
 
