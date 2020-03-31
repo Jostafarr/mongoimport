@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/romnnn/mongoimport"
+	"github.com/romnnn/mongoimport/files"
 	"github.com/romnnn/mongoimport/loaders"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
@@ -206,6 +207,53 @@ func main() {
 						log.Fatal(err)
 					}
 					log.Infof(result.Summary())
+
+					return err
+				},
+			},
+			{
+				Name:  "xml",
+				Usage: "Import xml into database",
+				Flags: []cli.Flag{
+					//put in flags here
+				},
+				Action: func(c *cli.Context) error {
+					setLogLevel(c)
+					// cli.CommandHelpTemplate = strings.Replace(cli.CommandHelpTemplate, "[arguments...]", "<csv-file>", -1)
+					file, err := getFiles(c)
+					xmlLoader := loaders.DefaultXMLLoader()
+
+					// csvLoader.SkipHeader = c.Bool("skip-header")
+					// csvLoader.Fields = c.String("fields")
+					// csvLoader.NullDelimiter = c.String("null-delimiter")
+					// csvLoader.SkipParseHeader = c.Bool("skip-parse-delimiter")
+					// csvLoader.Excel = c.Bool("excel")
+					//csvLoader.Delimiter = loaders.ParseDelimiter(c.String("delimiter"), csvLoader.SkipParseHeader)
+
+					datasources := []*mongoimport.Datasource{
+						{
+							Sanitize:        true,
+							FileProvider:    files.List{Files: []string{file}},
+							Collection:      "test",
+							Loader:          loaders.Loader{SpecificLoader: xmlLoader},
+							EmptyCollection: true,
+							PostLoad: func(loaded map[string]interface{}) (interface{}, error) {
+								return loaded, nil
+							},
+						},
+					}
+
+					i := mongoimport.Import{
+						IgnoreErrors: c.Bool("ignore-errors"),
+						Sources:      datasources,
+						Connection:   parseMongoClient(c),
+					}
+
+					result, err := i.Start()
+					if err != nil {
+						log.Fatal(err)
+					}
+					log.Infof("Total: %d rows were imported successfully and %d failed in %s", result.Succeeded, result.Failed, result.Elapsed)
 
 					return err
 				},

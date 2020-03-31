@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/JensRantil/go-csv v0.0.0-20191126162552-aff1990e884a
+	github.com/clbanning/mxj v1.8.4
 	github.com/docker/go-connections v0.4.0
 	github.com/fzipp/gocyclo v0.0.0-20150627053110-6acd4345c835 // indirect
 	github.com/gosuri/uilive v0.0.4 // indirect

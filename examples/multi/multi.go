@@ -30,6 +30,7 @@ func main() {
 	}
 	defer mongoC.Terminate(context.Background())
 
+	xmlLoader := loaders.DefaultXMLLoader()
 	csvLoader := loaders.DefaultCSVLoader()
 	csvLoader.Excel = false
 	datasources := []*mongoimport.Datasource{
@@ -77,6 +78,19 @@ func main() {
 			Loader:             loaders.Loader{SpecificLoader: csvLoader},
 			PostLoad: func(loaded map[string]interface{}) (interface{}, error) {
 				log.Debug(loaded)
+				return loaded, nil
+			},
+		},
+		{
+			FileProvider: &files.List{Files: []string{
+				filepath.Join(dir, "examples/data/books1.xml"),
+				filepath.Join(dir, "examples/data/books2.xml"),
+			}},
+			Collection:         "books",
+			IndividualProgress: true,
+			Loader:             loaders.Loader{SpecificLoader: xmlLoader},
+			PostLoad: func(loaded map[string]interface{}) (interface{}, error) {
+				// log.Debug(loaded)
 				return loaded, nil
 			},
 		},
